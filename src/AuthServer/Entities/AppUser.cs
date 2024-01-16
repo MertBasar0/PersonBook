@@ -8,18 +8,42 @@ using System.Threading.Tasks;
 
 namespace Entities
 {
-    public class AppUser : IdentityUser<int>
+    public class AppUser : IdentityUser
     {
-        private DateTime _createTime = DateTime.Now;
+        private DateTime? _createTime = DateTime.Now;
 
-        public DateTime createTime { get => _createTime; set => _createTime = value; }
+        public DateTime? createTime { get => _createTime; set => _createTime = value; }
 
-        public DateTime deleteTime { get; set; }
+        public DateTime? deleteTime { get; set; }
 
-        public DateTime updateTime { get; set; }
+        public DateTime? updateTime { get; set; }
 
-        private UserStatus _status = UserStatus.Active;
+        private UserStatus? _status = UserStatus.Active;
 
-        public UserStatus status { get => _status; set => _status = value; }
+        public UserStatus? status { get => _status; set => _status = value; }
+
+
+
+        public AppUser()
+        {
+           
+        }
+
+        public AppUser(DateTime? createTime = null, DateTime? deleteTime = null, DateTime? updateTime = null, UserStatus? status = UserStatus.Active)
+        {
+            this.createTime = createTime;
+            this.deleteTime = deleteTime;
+            this.updateTime = updateTime;
+            this.status = status;
+        }
+
+        public static AppUser CreateUser(string userName, string mail)
+        {
+            return new AppUser(status: UserStatus.Active) 
+            {
+                UserName = userName,
+                Email = mail
+            };
+        }
     }
 }

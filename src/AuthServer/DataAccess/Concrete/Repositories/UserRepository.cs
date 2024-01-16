@@ -1,6 +1,6 @@
 ﻿using DataAccess.Abstract;
+using DataAccess.Concrete.Infrastructure;
 using Entities;
-using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -13,17 +13,30 @@ namespace DataAccess.Concrete.Repositories
     public class UserRepository : IUserRepository
     {
         public readonly UserManager<AppUser> _userManager;
-        public readonly SignInManager<AppUser,int> _signInManager;
+        public readonly RoleManager<AppRole> _roleManager;
+        public readonly PasswordHasher<AppUser> _passwordHasher;
+        public readonly SignInManager<AppUser> _signInManager;
+        public readonly AuthDbContext _authDbContext;
 
-        public UserRepository(UserManager<AppUser> userManager, Microsoft.AspNet.Identity.Owin.SignInManager<AppUser> signInManager)
+
+        public UserRepository(UserManager<AppUser> userManager, RoleManager<AppRole> roleManager, PasswordHasher<AppUser> passwordHasher, SignInManager<AppUser> signInManager, AuthDbContext authDbContext)
         {
             _userManager = userManager;
+            _roleManager = roleManager;
+            _passwordHasher = passwordHasher;
             _signInManager = signInManager;
+            _authDbContext = authDbContext;
         }
 
         public Task<AppUser> CreateUser()
         {
+
+            //var result = _userManager.CreateAsync();
+
+            //_authDbContext.
+
             return null;
+
         }
 
         public Task<List<AppUser>> GetAllUsers()
